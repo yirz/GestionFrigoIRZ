@@ -8,14 +8,15 @@ defineEmits(["add1p", "delete1p"]);
 <template>
   <li>
     {{ produit.print() }}
-    <button @click="deletep(produit.id)">
-      <p>Supprimer</p>
+    <img v-bind:src="produit.photo" />
+    <button @click="deletep(produit.id)" class="button">
+      <img  src='../assets/delete.png' alt="tomates"  >
     </button>
-    <button @click="$emit('delete1p', produit)">
-      <p>-1</p>
+    <button @click="$emit('delete1p', produit)" >
+      <p class="button">-1</p>
     </button>
-    <button @click="$emit('add1p', produit)">
-      <p>+1</p>
+    <button @click="$emit('add1p', produit)" >
+      <p class="button">+1 </p>
     </button>
   </li>
 </template>
@@ -24,5 +25,9 @@ defineEmits(["add1p", "delete1p"]);
 ul {
   /* afin de retirer les puces de la liste */
   list-style-type: none;
+}
+
+.button{
+  height: 10px;
 }
 </style>

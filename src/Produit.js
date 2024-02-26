@@ -14,6 +14,9 @@ export default class Produit {
   get qte() {
     return this._qte;
   }
+  get photo(){
+    return this._photo;
+  }
 
   print() {
     return `${this.qte} ${this._nom}`;

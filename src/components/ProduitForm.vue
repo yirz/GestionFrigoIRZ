@@ -17,16 +17,19 @@ function handlerSubmit() {
 </script>
 
 <template>
-  <form @submit.prevent="$emit('addp', nom, qte, photo)">
-    <input type="" v-model="nom" placeholder="nom ?" />
-    <input type="int" v-model="qte" placeholder="quantité ?" />
-    <input type="" v-model="photo" placeholder="photo ?" />
-    <img src="../../assets/tomate_rund_010919.png" />
+  <form @submit.prevent="$emit('addp', nom, qte, photo)" id ="add">
+    <input type="" v-model="nom" placeholder="nom" />
+    <input type="int" v-model="qte" placeholder="quantité" />
+    <input type="" v-model="photo" placeholder="photo" />
 
     <button type="submit">
       <p>Ajouter</p>
     </button>
   </form>
+  <div>
+  <!--<img src="C:/Users/yanni/OneDrive/Bureau/GestionFrigoIRZ/src/components/tomates.png" alt="tomates"/>-->
+  <img  src='../assets/tomates.png' alt="tomates">
+  </div>
 </template>
 
 <style></style>

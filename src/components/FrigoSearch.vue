@@ -13,11 +13,11 @@ const emit = defineEmits(["searchp"]);
     pour faire ressortir du composant 
     les valeurs des variables "titre", "quantité" et "prix";
   -->
-  <form @submit.prevent="$emit('searchp', motcle)">
+  <form @submit.prevent="$emit('searchp', motcle)" id="search">
     <input type="text" v-model="motcle" placeholder="Produit" />
     <button type="submit">
       <!-- le bouton ne sera plus un texte mais une image -->
-      <p>Valider</p>
+      <img  src='../assets/check-circle.png' alt="tomates">
     </button>
   </form>
 

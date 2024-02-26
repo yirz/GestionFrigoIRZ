@@ -18,10 +18,11 @@ function getProduit() {
       listProduits.splice(0, listProduits.length);
       // pour chaque donnée renvoyée par l'API
       //  créer un objet instance de la classe Livre
-      //  et l'ajouter dans la liste listep
+      //  et l'ajouter dans la liste listel
       let produits = dataJSON;
       for (let p of produits) {
-        listProduits.push(new Produit(p.id, p.nom, p.qte));
+        listProduits.push(new Produit(p.id, p.nom, p.qte, p.photo));
+
       }
     })
     .catch((error) => console.log(error));
@@ -51,6 +52,7 @@ function handlerAdd(nom, qte, photo) {
       getProduit();
     })
     .catch((error) => console.log(error));
+    document.getElementById("add").reset();
 }
 
 function handlerDelete(id) {
@@ -83,8 +85,9 @@ function handler1Add(p) {
   const fetchOptions = {
     method: "PUT",
     headers: myHeaders,
-    body: JSON.stringify(p),
+    body: JSON.stringify({id:p.id,nom:p.nom,qte:p.qte,photo:p.photo}),
   };
+  console.log(fetchOptions);
   // -- la req AJAX
   fetch(url, fetchOptions)
     .then((response) => {
@@ -101,7 +104,7 @@ function handler1Add(p) {
 function handlerSearch(motcle) {
   /* on récupère le mot clé nécessaire à la recherche */
   const fetchOptions = { method: "GET" };
-
+  document.getElementById("recherche").innerHTML ="";
   fetch(url + "?search=" + motcle, fetchOptions)
     .then((response) => {
       return response.json();
@@ -120,6 +123,7 @@ function handlerSearch(motcle) {
       document.getElementById("recherche").innerHTML += "</ul>";
     })
     .catch((error) => console.log(error));
+    document.getElementById("search").reset();
 }
 function handler1Delete(p) {
   console.log(p);
@@ -134,7 +138,7 @@ function handler1Delete(p) {
     const fetchOptions = {
       method: "PUT",
       headers: myHeaders,
-      body: JSON.stringify(p),
+      body: JSON.stringify({id:p.id,nom:p.nom,qte:p.qte,photo:p.photo})
     };
     // -- la req AJAX
     fetch(url, fetchOptions)
@@ -161,6 +165,7 @@ onMounted(() => {
 <template>
   <div class="container mt-5">
     <h2 class="mb-4">Les produits dans le frigo :</h2>
+    <div class="product">
     <ul class="list-group">
       <ProduitItem
         v-for="produit of listProduits"
@@ -171,7 +176,7 @@ onMounted(() => {
         @delete1p="handler1Delete"
       ></ProduitItem>
     </ul>
-
+    </div>
     <h2 class="mt-5">Ajouter un produit :</h2>
     <ProduitForm @addp="handlerAdd"></ProduitForm>
 
@@ -184,18 +189,22 @@ onMounted(() => {
 
 <style scoped>
 body {
-  background-color: #d4d2c9;
+  background-color: #115da4;
 }
 
 h2 {
   font-family: "Bauhaus 93", "Algerian", "sans-serif";
   /* On choisi deux polices au cas où le navigateur ne connaisse pas la 1ere police */
   font-size: 30px;
-  color: #115da4;
+  color: white;
   text-align: center;
-  background-color: #fff3e4;
+  background-color: #115da4;
 }
-.list-group {
+
+
+.product{
   margin-top: 20px;
+  background-image: url(../assets/frigo.jpg);
+  height: 630px;
 }
 </style>

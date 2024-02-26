@@ -8,9 +8,9 @@ h1 {
   font-family: "Bauhaus 93", "Algerian", "sans-serif";
   /* On choisi deux polices au cas où le navigateur ne connaisse pas la 1ere police */
   font-size: 60px;
-  color: #115da4;
+  color: white;
   text-align: center;
-  background-color: #fff3e4;
+  background-color: #115da4;
 }
 
 #accueil {
