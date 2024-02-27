@@ -20,16 +20,18 @@ function handlerSubmit() {
   <form @submit.prevent="$emit('addp', nom, qte, photo)" id ="add">
     <input type="" v-model="nom" placeholder="nom" />
     <input type="int" v-model="qte" placeholder="quantité" />
-    <input type="" v-model="photo" placeholder="photo" />
-
+    <input type="" v-model="photo" placeholder="URL photo" />
     <button type="submit">
-      <p>Ajouter</p>
+      <img  src='../assets/deux-ticks.png' alt="Ajouter" class ="button">
     </button>
   </form>
   <div>
   <!--<img src="C:/Users/yanni/OneDrive/Bureau/GestionFrigoIRZ/src/components/tomates.png" alt="tomates"/>-->
-  <img  src='../assets/tomates.png' alt="tomates">
   </div>
 </template>
 
-<style></style>
+<style>
+
+ 
+
+</style>

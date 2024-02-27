@@ -4,6 +4,11 @@ export default class Produit {
     this._nom = nom;
     this._qte = qte;
     this._photo = photo;
+    if(photo==""){
+      this._photo="../assets/gris.png"
+  }
+
+    
   }
   get id() {
     return this._id;

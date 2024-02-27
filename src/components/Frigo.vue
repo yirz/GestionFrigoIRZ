@@ -17,15 +17,19 @@ function getProduit() {
       // -- vider la liste des produits
       listProduits.splice(0, listProduits.length);
       // pour chaque donnée renvoyée par l'API
-      //  créer un objet instance de la classe Livre
-      //  et l'ajouter dans la liste listel
+      //  créer un objet instance de la classe Produits
+      //  et l'ajouter dans la liste listep
+     
       let produits = dataJSON;
       for (let p of produits) {
         listProduits.push(new Produit(p.id, p.nom, p.qte, p.photo));
 
       }
+    
     })
     .catch((error) => console.log(error));
+
+    console.log(listProduits);
 }
 
 function handlerAdd(nom, qte, photo) {
@@ -34,7 +38,15 @@ function handlerAdd(nom, qte, photo) {
     // Si la quantité est négative ou nulle, on force la quantité à 1
     qte = 1;
   }
-  console.log(nom, qte);
+
+  console.log(photo)
+
+  if(photo==""){
+      photo="../assets/gris.png"
+  }
+
+  //console.log(photo);
+  //console.log(nom, qte);
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -44,15 +56,22 @@ function handlerAdd(nom, qte, photo) {
     body: JSON.stringify({ nom: nom, qte: qte, photo: photo }),
   };
 
-  fetch(url, fetchOptions)
-    .then((response) => {
-      return response.json();
-    })
-    .then((dataJSON) => {
-      getProduit();
-    })
-    .catch((error) => console.log(error));
-    document.getElementById("add").reset();
+ 
+
+  if(listProduits.length < 6){
+      
+    fetch(url, fetchOptions)
+      .then((response) => {
+        return response.json();
+      })
+      .then((dataJSON) => {
+        getProduit();
+      })
+      .catch((error) => console.log(error));
+      document.getElementById("add").reset();
+  }
+  console.log(listProduits);
+
 }
 
 function handlerDelete(id) {
@@ -61,7 +80,7 @@ function handlerDelete(id) {
     method: "DELETE",
   };
   console.log(url + "/" + id);
-  // -- l'id du livre à supprimer doit être ajouté à la fin de l'url
+  // -- l'id du Produit à supprimer doit être ajouté à la fin de l'url
   fetch(url + "/" + id, fetchOptions)
     .then((response) => {
       return response.json();
@@ -75,7 +94,7 @@ function handlerDelete(id) {
 
 function handler1Add(p) {
   console.log(p);
-  // -- ajouter 1 en quantité en stock
+  // -- ajouter 1 en quantité qte
   p.add1p();
   // -- entête http pour la req AJAX
   let myHeaders = new Headers();
@@ -95,7 +114,7 @@ function handler1Add(p) {
     })
     .then((dataJSON) => {
       console.log(dataJSON);
-      // actualiser la liste des livres
+      // actualiser la liste des Produits
       getProduit();
     })
     .catch((error) => console.log(error));
@@ -113,9 +132,9 @@ function handlerSearch(motcle) {
       console.log(dataJSON);
       let Produitscorespondants = dataJSON;
       document.getElementById("recherche").innerHTML += "<ul>";
-      /* on insère de l'html pour créer une liste de livre correspondant au critère*/
+      /* on insère de l'html pour créer une liste de Produits correspondant au critère*/
       for (let p of Produitscorespondants) {
-        /* pour chaque livres, on récupère ses attributs et on l'incère dans l'html */
+        /* pour chaque Produits, on récupère ses attributs et on l'incère dans l'html */
         document.getElementById("recherche").innerHTML +=
           "<li> Il reste " + p.qte + " " + p.nom + "</li>";
       }
@@ -147,7 +166,7 @@ function handler1Delete(p) {
       })
       .then((dataJSON) => {
         console.log(dataJSON);
-        // actualiser la liste des livres
+        // actualiser la liste des produits
         getProduit();
       })
       .catch((error) => console.log(error));
@@ -164,9 +183,10 @@ onMounted(() => {
 
 <template>
   <div class="container mt-5">
-    <h2 class="mb-4">Les produits dans le frigo :</h2>
-    <div class="product">
-    <ul class="list-group">
+    <h2 class="mb-4">
+      Les produits dans le frigo :
+    </h2>
+    <div class="frigo">
       <ProduitItem
         v-for="produit of listProduits"
         :key="produit.id"
@@ -174,8 +194,7 @@ onMounted(() => {
         :deletep="handlerDelete"
         @add1p="handler1Add"
         @delete1p="handler1Delete"
-      ></ProduitItem>
-    </ul>
+      class="produits"></ProduitItem>
     </div>
     <h2 class="mt-5">Ajouter un produit :</h2>
     <ProduitForm @addp="handlerAdd"></ProduitForm>
@@ -201,10 +220,18 @@ h2 {
   background-color: #115da4;
 }
 
-
-.product{
+.frigo{
+  display: grid;
+  grid-template-columns: 240px 200px;
   margin-top: 20px;
   background-image: url(../assets/frigo.jpg);
-  height: 630px;
+  height: 880px;
+  background-size: 1000px;
+  width : 1000px;
+  grid-auto-rows: minmax(auto, 200px);
+  grid-template-rows: 220px 220px;
+ 
 }
+
+
 </style>

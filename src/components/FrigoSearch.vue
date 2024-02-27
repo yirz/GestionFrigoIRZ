@@ -11,13 +11,13 @@ const emit = defineEmits(["searchp"]);
   <!-- quand le formulaire est validé,
     on doit emmetre un event vers le composant parent 
     pour faire ressortir du composant 
-    les valeurs des variables "titre", "quantité" et "prix";
+    les valeurs des variables "nom" et "qte" ;
   -->
   <form @submit.prevent="$emit('searchp', motcle)" id="search">
-    <input type="text" v-model="motcle" placeholder="Produit" />
+    <input type="text" v-model="motcle" placeholder="Produit recherché" />
     <button type="submit">
       <!-- le bouton ne sera plus un texte mais une image -->
-      <img  src='../assets/check-circle.png' alt="tomates">
+      <img  src='../assets/deux-ticks.png' alt="valider" class ="button">
     </button>
   </form>
 
